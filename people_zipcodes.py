@@ -39,12 +39,14 @@ class PeopleIndex:
         self.index(city_zips, people)
 
     def index(self, city_zips, people):
+        zips = {}
+        for city, zipcodes in city_zips.items():
+            for z in zipcodes:
+                zips[z] = city
         for person in people:
             pz = person.zipcode
-            for city, zipcodes in city_zips.items():
-                for zipcode in zipcodes:
-                    if zipcode == pz:
-                        self.people_index[city].add(person)
+            city = zips[pz]
+            self.people_index[city].add(person)
 
     def __repr__(self):
         return "PeopleIndex({0})".format(self.people_index)
