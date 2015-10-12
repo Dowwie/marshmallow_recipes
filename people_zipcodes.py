@@ -18,7 +18,7 @@ class Person:
         return other.name == self.name and other.zipcode == self.zipcode
 
     def __hash__(self):
-        return hash(frozenset([self.name, self.zipcode]))
+        return hash((self.name, self.zipcode))
 
 
 class PersonSchema(Schema):
