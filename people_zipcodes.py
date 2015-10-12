@@ -36,9 +36,9 @@ class PeopleIndex:
 
     def __init__(self, city_zips, people):
         self.people_index = defaultdict(set)
-        self.generate_people_index(city_zips, people)
+        self.index(city_zips, people)
 
-    def generate_people_index(self, city_zips, people):
+    def index(self, city_zips, people):
         for person in people:
             pz = person.zipcode
             for city, zipcodes in city_zips.items():
