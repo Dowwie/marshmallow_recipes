@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, post_load, missing
 from faker import Factory
-
+import copy
 from collections import defaultdict
 import pprint
 
@@ -95,7 +95,7 @@ class CollectionDict(fields.Dict):
             return default
 
     def _serialize(self, value, attr, obj):
-        ret = super()._serialize(value, attr, obj)
+        ret = super()._serialize(copy.copy(value), attr, obj)
         for key, collection in ret.items():
             lvalue = list(collection)
             ret[key] = [
@@ -115,7 +115,7 @@ class CollectionDict(fields.Dict):
 
 
 class PeopleIndexSchema(Schema):
-    people_index = CollectionDict(fields.Nested(PersonSchema()))
+    people_index = CollectionDict(fields.Nested(PersonSchema))
 
     @post_load
     def make_peopleindex(self, data):
